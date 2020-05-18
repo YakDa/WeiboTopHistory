@@ -1,0 +1,16 @@
+DROP DATABASE IF EXISTS weibotopdb;
+CREATE DATABASE weibotopdb;
+
+USE weibotopdb;
+CREATE TABLE weibotop_table(
+id BIGINT UNSIGNED NOT NULL,
+topic VARCHAR(150) NOT NULL,
+content VARCHAR(300),
+category VARCHAR(100),
+highest_rank INT UNSIGNED NOT NULL,
+duration_rank BIGINT UNSIGNED NOT NULL,
+hotpoints BIGINT UNSIGNED NOT NULL,
+start_time DATETIME NOT NULL,
+end_time DATETIME NOT NULL,
+PRIMARY KEY (id)
+);
