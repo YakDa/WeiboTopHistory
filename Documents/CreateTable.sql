@@ -3,14 +3,16 @@ CREATE DATABASE weibotopdb;
 
 USE weibotopdb;
 CREATE TABLE weibotop_table(
-id BIGINT UNSIGNED NOT NULL,
+id VARCHAR(16) NOT NULL,
 topic VARCHAR(150) NOT NULL,
 content VARCHAR(300),
 category VARCHAR(100),
-highest_rank INT UNSIGNED NOT NULL,
-duration_rank BIGINT UNSIGNED NOT NULL,
-hotpoints BIGINT UNSIGNED NOT NULL,
-start_time DATETIME NOT NULL,
-end_time DATETIME NOT NULL,
-PRIMARY KEY (id)
-);
+highestrank INT UNSIGNED NOT NULL,
+hotpoints INT UNSIGNED NOT NULL,
+firsttime DATETIME NOT NULL,
+lasttime DATETIME NOT NULL,
+duration INT UNSIGNED NOT NULL,
+PRIMARY KEY (id),
+UNIQUE KEY (topic)
+)
+CHARACTER SET 'utf8mb4';
