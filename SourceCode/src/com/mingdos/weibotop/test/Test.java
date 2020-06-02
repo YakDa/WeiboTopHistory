@@ -3,6 +3,7 @@
  */
 package com.mingdos.weibotop.test;
 import com.mingdos.weibotop.dao.*;
+import com.mingdos.weibotop.logger.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -18,25 +19,34 @@ import com.mingdos.weibotop.weibotopcrawler.*;
  */
 public class Test {
 	
-	private static Integer delaySeconds = 900; // Crawl the page every 15 mins 
-	private static Integer maxNumberOfTopics = 100;
+	private static Integer delaySeconds = 900; // Crawl the page every 15 mins mingda: to modify 900
+	private static Integer maxNumberOfTopics = 200; //mingda: to modify 200
 
 	public static void loadDataToDB(List<Topic> topics) {
+
+		int numOfUpdated = 0;
+		int numOfInserted = 0;
 		WeiboTopDao dao = new WeiboTopDaoImpl();
+		CrawlerLogger crawlerLog = CrawlerLogger.getInstance();
 		
 		for(Topic t: topics) {
 			if(dao.isTopicExist(t.getTopic()) == false) {
 				if(!dao.insertTopic(t)) {
 					System.out.println("Failed to insert to database");
+					crawlerLog.log("[DB]" + " Failed to insert to database");
 				}
+				numOfInserted++;
 			}
 			else {
 				if(!dao.updateTopic(t)) {
 					System.out.println("Failed to update to database");
+					crawlerLog.log("[DB]" + " Failed to update to database");
 				}
+				numOfUpdated++;
 			}
 		}
-		
+		crawlerLog.log("[DB]" + numOfInserted + " topics inserted");
+		crawlerLog.log("[DB]" + numOfUpdated + " topics updated");
 		Crawler.clearAllTopics();
 	}
 	
@@ -44,11 +54,16 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		CrawlerLogger crawlerLog = CrawlerLogger.getInstance();
+		
 		while(true) {
 			
 			try {
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY/MM/dd HH:mm:ss");
-				LocalDateTime now = LocalDateTime.now();
+				
+				now = LocalDateTime.now();
 				TimeUnit.SECONDS.sleep(delaySeconds);
 				System.out.println("Start: " + dtf.format(now));
 				List<Topic> result = Crawler.crawl("https://s.weibo.com/top/summary?cate=realtimehot");
@@ -73,12 +88,15 @@ public class Test {
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				crawlerLog.log(e.toString());
 				e.printStackTrace();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
+				crawlerLog.log(e.toString());
 				e.printStackTrace();
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
+				crawlerLog.log(e.toString());
 				e.printStackTrace();
 			}
 		}

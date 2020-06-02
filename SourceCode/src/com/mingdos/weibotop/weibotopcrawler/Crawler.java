@@ -2,6 +2,7 @@
  * 
  */
 package com.mingdos.weibotop.weibotopcrawler;
+import com.mingdos.weibotop.logger.CrawlerLogger;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class Crawler {
 
 	private static HashMap<String, Topic> weiboMap = new HashMap<>();
 	private static String prevCrawlTime;
+	public static final String version = "Crawler 1.0";
 	
 	/**
 	 * @throws IOException 
@@ -89,6 +91,8 @@ public class Crawler {
 		}
 		
 		prevCrawlTime = lastTime;
+		CrawlerLogger crawlerLog = CrawlerLogger.getInstance();
+		crawlerLog.log(currentTopList.size() + " topics crawled");
 		
 		return currentTopList;
 		
