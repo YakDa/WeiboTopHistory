@@ -1,0 +1,41 @@
+2020-06-09 15:48:27 (Crawler 1.1): 50 topics crawled
+2020-06-09 15:58:03 (Crawler 1.1): 50 topics crawled
+2020-06-09 15:58:04 (Crawler 1.1): [DB]8 topics inserted
+2020-06-09 15:58:04 (Crawler 1.1): [DB]45 topics updated
+2020-06-09 16:09:22 (Crawler 1.1): 50 topics crawled
+2020-06-09 16:19:05 (Crawler 1.1): 50 topics crawled
+2020-06-09 16:19:05 (Crawler 1.1): [DB]6 topics inserted
+2020-06-09 16:19:05 (Crawler 1.1): [DB]47 topics updated
+2020-06-09 16:28:52 (Crawler 1.1): 50 topics crawled
+2020-06-09 16:39:03 (Crawler 1.1): 50 topics crawled
+2020-06-09 16:39:03 (Crawler 1.1): [DB]9 topics inserted
+2020-06-09 16:39:03 (Crawler 1.1): [DB]45 topics updated
+2020-06-09 16:49:08 (Crawler 1.1): 50 topics crawled
+2020-06-09 16:58:36 (Crawler 1.1): 50 topics crawled
+2020-06-09 16:58:36 (Crawler 1.1): [DB]1 topics inserted
+2020-06-09 16:58:36 (Crawler 1.1): [DB]51 topics updated
+2020-06-09 17:08:08 (Crawler 1.1): 50 topics crawled
+2020-06-09 17:19:25 (Crawler 1.1): 50 topics crawled
+2020-06-09 17:28:37 (Crawler 1.1): 50 topics crawled
+2020-06-09 17:28:37 (Crawler 1.1): [DB]5 topics inserted
+2020-06-09 17:28:37 (Crawler 1.1): [DB]49 topics updated
+2020-06-09 17:38:01 (Crawler 1.1): 50 topics crawled
+2020-06-09 17:47:36 (Crawler 1.1): 50 topics crawled
+2020-06-09 17:47:39 (Crawler 1.1): [DB]5 topics inserted
+2020-06-09 17:47:39 (Crawler 1.1): [DB]49 topics updated
+2020-06-09 17:57:23 (Crawler 1.1): 50 topics crawled
+2020-06-09 18:06:37 (Crawler 1.1): 50 topics crawled
+2020-06-09 18:06:37 (Crawler 1.1): [DB]3 topics inserted
+2020-06-09 18:06:37 (Crawler 1.1): [DB]51 topics updated
+2020-06-09 18:16:17 (Crawler 1.1): 50 topics crawled
+2020-06-09 18:26:01 (Crawler 1.1): 50 topics crawled
+2020-06-09 18:26:02 (Crawler 1.1): [DB]7 topics inserted
+2020-06-09 18:26:02 (Crawler 1.1): [DB]47 topics updated
+2020-06-09 20:59:04 (Crawler 1.1): 50 topics crawled
+2020-06-09 20:59:13 (Crawler 1.1): java.net.UnknownHostException: s.weibo.com
+2020-06-09 20:59:22 (Crawler 1.1): java.net.UnknownHostException: s.weibo.com
+2020-06-09 20:59:31 (Crawler 1.1): java.net.UnknownHostException: s.weibo.com
+2020-06-09 21:07:11 (Crawler 1.1): 50 topics crawled
+2020-06-09 21:07:12 (Crawler 1.1): [DB]30 topics inserted
+2020-06-09 21:07:12 (Crawler 1.1): [DB]46 topics updated
+2020-06-09 21:07:21 (Crawler 1.1): java.net.UnknownHostException: s.weibo.com
