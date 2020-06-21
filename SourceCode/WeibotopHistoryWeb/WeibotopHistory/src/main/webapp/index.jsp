@@ -13,6 +13,7 @@
 		<title>Topic Ranking History</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 	</head>
 	
 	<body>
@@ -26,7 +27,6 @@
 		<div class="topics">
 		
 			<h1>Top 50 Lasting Topics</h1>
-	
 			<table>
 				
 				
@@ -35,7 +35,8 @@
 					<tr>
 						<th>Rank</th>
 						<th>Topic</th>
-						<th>Duration(Secs)</th>
+						<th>Duration</th>
+						<th>Traffic</th>
 					</tr>
 				</thead>
 					
@@ -44,7 +45,7 @@
 						List<Topic> result = new ArrayList<Topic>();
 						WeiboTopDao dao = new WeiboTopDaoImpl();
 				
-						result = dao.getTopicsBasedDuration(50, true);
+						result = dao.getTopicsBasedTraffic(50, true);
 						
 						for (Integer i=0;i<result.size();i++) {
 							Topic t = result.get(i);
@@ -53,26 +54,28 @@
 							out.println(Integer.toString(i + 1));
 							out.println("</td>");
 							out.println("<td>");
-							out.println(t.getTopic() + "<br>");
+							out.println("<div class=\"content\">");
+							out.println("<a href=\"#" + t.getTopic() + "\">" + t.getTopic() + "</a>" + "<br>");
 							out.println(t.getContent());
+							out.println("</div>");
 							out.println("</td>");
 							out.println("<td class=\"duration\">");
-							out.println(t.getDuration());
+							out.println(t.getDurationFormated());
+							out.println("</td>");
+							out.println("<td class=\"traffic\">");
+							out.println(t.getHotpoints());
 							out.println("</td>");
 							out.println("</tr>");
 						}
 					%>
+					
 				</tbody>
-	
-	
 			</table>
-
-		
 		</div>
-
-
-
 	
 	</body>
+	
+	<script type="text/javascript" src="js/clicktopic.js"></script>
+	
 	
 </html> 

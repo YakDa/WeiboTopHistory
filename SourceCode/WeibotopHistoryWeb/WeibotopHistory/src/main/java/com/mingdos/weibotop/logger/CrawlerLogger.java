@@ -29,7 +29,7 @@ public class CrawlerLogger {
 			path = "C:\\Github\\MyRepositary\\WeiboTopHistory\\SourceCode\\WeibotopHistoryWeb\\" + "Crawler_" + dftFile.format(now) + ".log";
 		}
 		else {
-			path = "/home/pi/tomcat/apache-tomcat-8.5.55/logs/" + "Crawler_" + dftFile.format(now) + ".log";
+			path = "/home/caimingda1987/tomcat/apache-tomcat-8.5.56/logs/" + "Crawler_" + dftFile.format(now) + ".log";
 		}
 		
 		File fout = new File(path);

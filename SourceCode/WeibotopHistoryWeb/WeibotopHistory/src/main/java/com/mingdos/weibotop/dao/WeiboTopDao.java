@@ -15,6 +15,7 @@ public interface WeiboTopDao {
 	public boolean updateTopic(Topic topic);
 	public boolean insertTopic(Topic topic);
 	public List<Topic> getTopicsBasedDuration(Integer number, boolean descend);
+	public List<Topic> getTopicsBasedTraffic(Integer number, boolean descend);
 	public List<Topic> getTopicsFromToDate(String startDate, String endDate);
 	public List<Topic> searchTopics(String keyword);
 	public boolean deleteTopic(Topic topic);

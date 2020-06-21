@@ -99,6 +99,19 @@ public class Topic {
 	public Long getDuration() {
 		return duration;
 	}
+	
+	public String getDurationFormated() {
+		if(duration == 0) {
+			return "< 30 mins";
+		}
+		int days = (int) (duration / 86400);
+		int remaining = (int) (duration % 86400);
+		int hours = (int) (remaining / 3600);
+		remaining = (int) (remaining % 3600);
+		int mins = (int) (remaining / 60);
+		int secs = (int) (remaining % 60);
+		return days + " day(s) " + String.format("%02d", hours) + ":" + String.format("%02d", mins) + ":" + String.format("%02d", secs);
+	}
 
 	public void setDuration(Long duration) {
 		if(duration < 0)

@@ -148,6 +148,28 @@ public class WeiboTopDaoImpl implements WeiboTopDao {
 		
 		return result;
 	}
+	
+	@Override
+	public List<Topic> getTopicsBasedTraffic(Integer number, boolean descend) {
+		connection = ConnectionFactory.getConnnection();
+		List<Topic> result = new ArrayList<Topic>();
+		
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM weibotop_table ORDER BY hotpoints DESC LIMIT " + number.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				result.add(new Topic(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5), rs.getLong(6), rs.getString(7), rs.getString(8), rs.getLong(9)));
+			}
+			
+			close();
+		} catch (SQLException e) {
+			close();
+			throw new RuntimeException("SQL Exception", e);
+		}
+		
+		return result;
+	}
 
 	@Override
 	public List<Topic> getTopicsFromToDate(String startDate, String endDate) {
@@ -155,7 +177,7 @@ public class WeiboTopDaoImpl implements WeiboTopDao {
 		List<Topic> result = new ArrayList<Topic> ();
 		
 		try {
-			preparedStatement = connection.prepareStatement("SELECT * FROM weibotop_table WHERE lasttime > '" + startDate + "' and " + "firsttime < '" + endDate + "'" + "ORDER BY duration DESC");
+			preparedStatement = connection.prepareStatement("SELECT * FROM weibotop_table WHERE lasttime > '" + startDate + "' and " + "firsttime < '" + endDate + "'" + "ORDER BY hotpoints DESC");
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {

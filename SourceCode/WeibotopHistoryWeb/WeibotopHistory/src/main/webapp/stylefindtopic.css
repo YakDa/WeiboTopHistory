@@ -2,11 +2,14 @@
 
 :root {
  	--main-color: #00cccc;
+ 	--content-title-size: 40px;
+ 	--content-font-size: 35px;
+ 	--max-width: 1200px;
 /* 	main-color: Tomato; */
 }
 
 nav {
-	max-width: 1000px;
+	max-width: var(--max-width);
 	margin: 0 auto;
 	overflow: hiden;
 	background-color: var(--main-color);
@@ -31,7 +34,7 @@ nav .home {
 
 .topics {
 	padding-top: 16px;
-	max-width: 1000px;
+	max-width: var(--max-width);
 	margin: 0 auto;
 }
 
@@ -42,11 +45,15 @@ table {
 table th {
 	border: 1px solid var(--main-color);
 	text-align: center;
+	font-size: var(--content-title-size);
+	font-weight: bold;
 }
 
 table td {
 	border: 1px solid var(--main-color);
 	text-align: center;
+	cursor: pointer;
+	font-size: var(--content-font-size);
 }
 
 td.rank {
@@ -58,6 +65,21 @@ td.duration {
 	font-weight: bold;
 	font-size: 1.5em;
 }
+
+td.traffic {
+	font-weight: bold;
+	font-size: 1.5em;
+	color: red;
+}
+
+.content {
+    height: var(--content-font-size);
+    padding: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    font-size: var(--content-font-size);
+}
+
 
 .find {
 	padding-top: 10px;
