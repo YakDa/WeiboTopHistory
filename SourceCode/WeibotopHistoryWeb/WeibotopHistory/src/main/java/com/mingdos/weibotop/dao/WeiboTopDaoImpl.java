@@ -73,12 +73,13 @@ public class WeiboTopDaoImpl implements WeiboTopDao {
 
 			duration = duration + topic.getDuration();
 			
-			preparedStatement = connection.prepareStatement("UPDATE weibotop_table SET highestrank = ?, hotpoints = ?, lasttime = ?, duration = ? WHERE topic=?");
+			preparedStatement = connection.prepareStatement("UPDATE weibotop_table SET highestrank = ?, hotpoints = ?, lasttime = ?, duration = ?, content=? WHERE topic=?");
 			preparedStatement.setLong(1, highestRank);
 			preparedStatement.setLong(2, hotPoints);
 			preparedStatement.setString(3, topic.getLastTime());
 			preparedStatement.setLong(4, duration);
-			preparedStatement.setString(5, topic.getTopic());
+			preparedStatement.setString(5, topic.getContent());
+			preparedStatement.setString(6, topic.getTopic());
 			
 			int i = preparedStatement.executeUpdate();
 			

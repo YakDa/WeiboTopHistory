@@ -139,5 +139,8 @@ public class Topic {
 		this.lastTime = lastTime;
 		this.duration = duration;
 	}
+	
+	public Topic() {
+	}
 
 }

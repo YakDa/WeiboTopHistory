@@ -25,11 +25,10 @@ import com.mingdos.weibotop.model.*;
 public class Crawler {
 
 	private static boolean debugMode = false;
-	private static HashMap<String, Topic> weiboMap = new HashMap<>();
+	private static HashMap<String, Topic> prevWeiboMap = new HashMap<>();
 	private static String prevCrawlTime;
-	public static final String version = "Crawler 1.1";
+	public static final String version = "Crawler 1.2";
 	private static Integer delaySeconds = 900; // Crawl the page every 15 mins
-	private static Integer maxNumberOfTopics = 100; //When 100 different topics have been crawled, then insert them into database
 	
 	
 	/**
@@ -42,6 +41,7 @@ public class Crawler {
 		
 		CrawlerLogger crawlerLog = CrawlerLogger.getInstance(debugMode);
 		List<Topic> currentTopList = new ArrayList<>();
+		HashMap<String, Topic> currWeiboMap = new HashMap<>();
 		Document topPage;
 		try {
 			topPage = Jsoup.connect(url).get();
@@ -87,28 +87,46 @@ public class Crawler {
 					
 				}
 				id = Long.toString(Long.parseLong(id) + 1);
-				if(weiboMap.containsKey(topic)) {
+				if(prevWeiboMap.containsKey(topic)) {
 
 					try {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						Topic ref = weiboMap.get(topic);
+						Topic prevTopicRef = prevWeiboMap.get(topic);
+						Topic curTopicRef = new Topic();
 						Long lastDate;
 						lastDate = sdf.parse(prevCrawlTime).getTime()/1000;
 						Long currentDate = sdf.parse(lastTime).getTime()/1000;
-						ref.setLastTime(lastTime);
-						ref.setDuration(ref.getDuration() + currentDate - lastDate);
-						if(ref.getHighestRank() > highestRank) {
-							ref.setHighestRank(highestRank);
+						curTopicRef.setTopic(topic);
+						curTopicRef.setCategory("");
+						curTopicRef.setFirstTime(prevTopicRef.getFirstTime());
+						curTopicRef.setLastTime(lastTime);
+						curTopicRef.setDuration(currentDate - lastDate);
+
+						Long prevHighestRank = prevTopicRef.getHighestRank();
+						if(prevHighestRank > highestRank) {
+							curTopicRef.setHighestRank(highestRank);
 						}
-						if(ref.getHotpoints() < hotpoints) {
-							ref.setHotpoints(hotpoints);
+						else {
+							curTopicRef.setHighestRank(prevHighestRank);
 						}
-						if(!content.isEmpty()) {
-							if(ref.getContent().isEmpty() || ref.getContent().startsWith("Copyright © ")) {
-								ref.setContent(content);
-							}
+						
+						Long prevHighestHotPoint = prevTopicRef.getHotpoints();
+						if(prevHighestHotPoint < hotpoints) {
+							curTopicRef.setHotpoints(hotpoints);
 						}
-						currentTopList.add(ref);
+						else {
+							curTopicRef.setHotpoints(prevHighestHotPoint);
+						}
+						
+						if(content.isEmpty() || content.startsWith("Copyright © ")) {
+							curTopicRef.setContent(prevTopicRef.getContent());
+						}
+						else {
+							curTopicRef.setContent(content);
+						}
+						
+						currentTopList.add(curTopicRef);
+						currWeiboMap.put(topic, curTopicRef);
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						// if There is exception for the parsing time, then just continue, consider there is period of time the 
@@ -119,30 +137,20 @@ public class Crawler {
 				}
 				else {
 					Topic newTopic = new Topic(id, topic, content, "", highestRank, hotpoints, firstTime, firstTime, (long)0);
-					weiboMap.put(topic, newTopic);
+					currWeiboMap.put(topic, newTopic);
 					currentTopList.add(newTopic);
 				}
 			}
 		}
 		
 		prevCrawlTime = lastTime;
+		prevWeiboMap = currWeiboMap;
 		crawlerLog.log(currentTopList.size() + " topics crawled");
 		
 		return currentTopList;
 		
 	}
 	
-	public static List<Topic> getAllTopics() {
-		return new ArrayList<Topic>(weiboMap.values());
-	}
-	
-	public static int getNumberOfTopics() {
-		return weiboMap.size();
-	}
-	
-	public static void clearAllTopics() {
-		weiboMap.clear();
-	}
 	
 	public static void loadDataToDB(List<Topic> topics) {
 
@@ -169,15 +177,13 @@ public class Crawler {
 		}
 		crawlerLog.log("[DB]" + numOfInserted + " topics inserted");
 		crawlerLog.log("[DB]" + numOfUpdated + " topics updated");
-		Crawler.clearAllTopics();
 	}
 	
 	public static void startCrawler() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		CrawlerLogger crawlerLog = CrawlerLogger.getInstance(debugMode);
-		delaySeconds = debugMode? 9 : 900;
-		maxNumberOfTopics = debugMode? 52 : 100;
+		delaySeconds = debugMode? 1 : 900;
 		
 		while(true) {
 			
@@ -197,9 +203,7 @@ public class Crawler {
 					
 				}
 				
-				if(Crawler.getNumberOfTopics() > maxNumberOfTopics) {
-					loadDataToDB(Crawler.getAllTopics());
-				}
+				loadDataToDB(result);
 				
 				
 				now = LocalDateTime.now();
