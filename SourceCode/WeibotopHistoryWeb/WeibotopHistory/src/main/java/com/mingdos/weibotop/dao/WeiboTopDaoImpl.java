@@ -205,6 +205,29 @@ public class WeiboTopDaoImpl implements WeiboTopDao {
 		
 	}
 	
+	@Override
+	public Topic getTopicWithId(String id) {
+		
+		connection = ConnectionFactory.getConnnection();
+		try {
+			
+			preparedStatement = connection.prepareStatement("SELECT * FROM weibotop_table WHERE id = ? LIMIT 1");
+			preparedStatement.setString(1, id);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			rs.next();
+			
+			close();
+			
+			return new Topic(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getLong(5), rs.getLong(6), rs.getString(7), rs.getString(8), rs.getLong(9));
+
+		} catch (SQLException e) {
+			close();
+			throw new RuntimeException("SQL Exception", e);
+		}
+	}
+	
 	private Topic getTopic(String topic) {
 		connection = ConnectionFactory.getConnnection();
 		try {
@@ -259,6 +282,9 @@ public class WeiboTopDaoImpl implements WeiboTopDao {
 		// TODO Auto-generated method stub
 
 	}
+
+
+
 
 
 

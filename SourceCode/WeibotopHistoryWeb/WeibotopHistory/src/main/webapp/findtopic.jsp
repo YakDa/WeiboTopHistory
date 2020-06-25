@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Find Topic</title>
-	<link rel="stylesheet" type="text/css" href="stylefindtopic.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'>
 	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
@@ -17,7 +17,7 @@
 	<nav>
 		<a class="home" href="/WeibotopHistory/index.jsp">WeiboTopHistory</a>
 		<a class="findtopic" href="/WeibotopHistory/findtopic.jsp">Find Topic</a>
-    	<a class="about" href="#">About</a>
+    	<a class="about" href="/WeibotopHistory/about.jsp">About</a>
 	</nav>
 	
 	<div class="topics">
@@ -43,12 +43,11 @@
 							out.println("<h2>Sorry, no information found!</h2>");
 						}
 						else {
-							out.println("<table>");
+							out.println("<table class=\"toplisttable\" style=\"width:100%;\">");
 							out.println("<thead>");
 							out.println("<tr>");
 							out.println("<th>Rank</th>");
 							out.println("<th>Topic</th>");
-							out.println("<th>Duration</th>");
 							out.println("<th>Traffic</th>");
 							out.println("</tr>");
 							out.println("</thead>");
@@ -60,13 +59,7 @@
 								out.println(Integer.toString(i + 1));
 								out.println("</td>");
 								out.println("<td>");
-								out.println("<div class=\"content\">");
-								out.println("<a href=\"#" + t.getTopic() + "\">" + t.getTopic() + "</a>" + "<br>");
-								out.println(t.getContent());
-								out.println("</div>");
-								out.println("</td>");
-								out.println("<td class=\"duration\">");
-								out.println(t.getDurationFormated());
+								out.println("<a href=\"showinfo?id=" + t.getId() + "\">" + t.getTopic() + "</a>");
 								out.println("</td>");
 								out.println("<td class=\"traffic\">");
 								out.println(t.getHotpoints());
@@ -83,7 +76,5 @@
 	
 
 </body>
-
-<script type="text/javascript" src="js/clicktopic.js"></script>
 
 </html>

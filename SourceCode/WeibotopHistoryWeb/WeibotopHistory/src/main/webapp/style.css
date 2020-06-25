@@ -4,6 +4,7 @@
  	--content-title-size: 40px;
  	--content-font-size: 35px;
  	--max-width: 1200px;
+ 	--toplisttable_border: 2px;
 /* 	main-color: Tomato; */
 }
 
@@ -38,50 +39,76 @@ div.topics {
 	padding-top: 16px;
 	max-width: var(--max-width);
 	margin: 0 auto;
+	overflow-x: auto;
 }
 
-table {
+.topform
+{
+    display: inline-block;
+}
+
+.topbutton
+{
+	font-size: 20px;
+	background-color: Green;
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-decoration: none;
+	cursor: pointer;
+    margin-bottom: 16px;
+}
+
+table, th, td {
+  border-collapse: collapse;
+}
+
+table.toplist {
 	/*border-collapse:collapse;*/
-	border:1px solid var(--main-color);
+	border:var(--toplisttable_border) solid var(--main-color);
 }
 
-table th {
-	border:1px solid var(--main-color);
+.toplisttable th {
+	border:var(--toplisttable_border) solid var(--main-color);
 	text-align: center;
 	font-size: var(--content-title-size);
 	font-weight: bold;
 }
 
-table td {
-  	border:1px solid var(--main-color);
+.toplisttable td {
+  	border:var(--toplisttable_border) solid var(--main-color);
 	text-align: center;
 	font-size: var(--content-font-size);
-	cursor: pointer;
 }
 
-.content {
-    height: var(--content-font-size);
-    padding: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    font-size: var(--content-font-size);
-}
-
-
-td.rank {
+.toplisttable td.rank {
 	font-weight: bold;
 	font-size: 2em;
 }
 
-td.duration {
+.toplisttable td.duration {
 	font-weight: bold;
 	font-size: 1.5em;
 }
 
-td.traffic {
+.toplisttable td.traffic {
 	font-weight: bold;
 	font-size: 1.5em;
 	color: red;
+}
+
+.topicinfotable {
+	border:1px solid var(--main-color);
+}
+
+.topicinfotable th {
+	border:1px solid var(--main-color);
+	text-align: left;
+}
+
+.topicinfotable td {
+	border:1px solid var(--main-color);
+	text-align: center;
 }
 
 h1 {

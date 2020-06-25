@@ -23,6 +23,12 @@
   	<description></description>
   	<servlet-class>com.mingdos.weibotophistory.FindTopicServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>TopicsTopServlet</servlet-name>
+  	<display-name>TopicsTopServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.mingdos.weibotophistory.TopicsTopServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>TopicInfoServlet</servlet-name>
   	<url-pattern>/showinfo</url-pattern>
@@ -30,6 +36,10 @@
   <servlet-mapping>
   	<servlet-name>FindTopicServlet</servlet-name>
   	<url-pattern>/selecttopics</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>TopicsTopServlet</servlet-name>
+  	<url-pattern>/top</url-pattern>
   </servlet-mapping>
 
 </web-app>
