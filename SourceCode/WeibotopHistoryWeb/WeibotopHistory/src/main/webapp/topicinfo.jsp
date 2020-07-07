@@ -31,6 +31,7 @@
 					out.println("<tr>" + "<th>Traffic</th>" + "<td>" + t.getHotpoints() + "</td>" + "</tr>");
 					out.println("</table>");
 					
+					out.println("<h2>" + "<a href=\"https://s.weibo.com/weibo?q=" + t.getTopic() + "\">" + t.getTopic() + "</a>" + "</h2>");
 					
 					out.println("<p>" + t.getContent() + "</p>");
 				}
