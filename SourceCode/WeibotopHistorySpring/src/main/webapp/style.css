@@ -1,0 +1,121 @@
+@charset "utf-8";
+:root {
+/*  	--main-color: #00cccc; */
+	--main-color: Orange;
+ 	--content-title-size: 40px;
+ 	--content-font-size: 35px;
+ 	--max-width: 1200px;
+ 	--toplisttable_border: 2px;
+/* 	main-color: Tomato; */
+}
+
+nav {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	overflow: hiden;
+	/*background-color: Tomato;*/
+	background-color: var(--main-color);
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+nav a {
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 17px;
+	font-weight: bold;
+}
+
+nav .home {
+	font-family: 'Lobster';
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+
+
+div.topics {
+	padding-top: 16px;
+	max-width: var(--max-width);
+	margin: 0 auto;
+	overflow-x: auto;
+}
+
+.topform
+{
+    display: inline-block;
+}
+
+.topbutton
+{
+	font-size: 20px;
+/* 	background-color: Green; */
+	background-color: var(--main-color);
+	border: none;
+	color: white;
+	padding: 16px 32px;
+	text-decoration: none;
+	cursor: pointer;
+    margin-bottom: 16px;
+}
+
+table, th, td {
+  border-collapse: collapse;
+}
+
+table.toplist {
+	/*border-collapse:collapse;*/
+	border:var(--toplisttable_border) solid var(--main-color);
+}
+
+.toplisttable th {
+	border:var(--toplisttable_border) solid var(--main-color);
+	text-align: center;
+	font-size: var(--content-title-size);
+	font-weight: bold;
+}
+
+.toplisttable td {
+  	border:var(--toplisttable_border) solid var(--main-color);
+	text-align: center;
+	font-size: var(--content-font-size);
+}
+
+.toplisttable td.rank {
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.toplisttable td.duration {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.toplisttable td.traffic {
+	font-weight: bold;
+	font-size: 1.5em;
+	color: red;
+}
+
+.topicinfotable {
+	border:1px solid var(--main-color);
+}
+
+.topicinfotable th {
+	border:1px solid var(--main-color);
+	text-align: left;
+}
+
+.topicinfotable td {
+	border:1px solid var(--main-color);
+	text-align: center;
+}
+
+h1 {
+	/*color: Tomato;*/
+	color: var(--main-color);
+}
+
+
