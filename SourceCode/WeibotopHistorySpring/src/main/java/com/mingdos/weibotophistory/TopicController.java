@@ -2,6 +2,7 @@ package com.mingdos.weibotophistory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,10 +59,23 @@ public class TopicController {
 	}
 	
 	@GetMapping("selecttopics")
-	public String selectTopics(@RequestParam("from") String from, @RequestParam("to") String to, Model m) {
+	public String selectTopics(@RequestParam("search") String keyword, @RequestParam("from") String from, @RequestParam("to") String to, Model m) {
 		
-		List<Topic> result = topicRepo.getTopicsFromToDate(from + " 00:00:00", to + " 23:59:59");
+		List<Topic> result = new ArrayList<>();
+		
+		if(from.isEmpty() && to.isEmpty() && !keyword.isEmpty()) {
+			result = topicRepo.searchKeywords(keyword);
+		}
+		else if(!from.isEmpty() && !to.isEmpty() && keyword.isEmpty()) {
+			result = topicRepo.getTopicsFromToDate(from + " 00:00:00", to + " 23:59:59");
+		}
+		else if(!from.isEmpty() && !to.isEmpty() && !keyword.isEmpty()) {
+			result = topicRepo.searchKeywordsWithDate(from, to, keyword);
+		}
+		
 		m.addAttribute("topics", result);
+
 		return "findtopic";
 	}
+	
 }

@@ -7,16 +7,27 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+//@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+@ConfigurationProperties(prefix = "crawler")
 public class CrawlerLogger {
 
-	private static CrawlerLogger crawlerLogger;
-	private static boolean debugMode;
+	private boolean debugMode;
+	
+	public void setDebugMode(boolean debugMode) {
+		this.debugMode = debugMode;
+	}
+
 	private DateTimeFormatter dtfLog = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	private DateTimeFormatter dftFile = DateTimeFormatter.ofPattern("yyyyMMdd"); //mingda: to modify yyyyMMdd
 	
-	private CrawlerLogger() {
-		// Set the constructor of Singleton class to private to avoid initialization from outside
-	}
 	
 
 	
@@ -55,14 +66,14 @@ public class CrawlerLogger {
 		
 	}
 	
-	public static CrawlerLogger getInstance(boolean debug) {
-		
-		debugMode = debug;
-		
-		if(crawlerLogger == null) {
-			crawlerLogger = new CrawlerLogger();
-		}
-		return crawlerLogger;
-	}
+//	public static CrawlerLogger getInstance(boolean debug) {
+//		
+//		debugMode = debug;
+//		
+//		if(crawlerLogger == null) {
+//			crawlerLogger = new CrawlerLogger();
+//		}
+//		return crawlerLogger;
+//	}
 
 }

@@ -18,9 +18,11 @@ import org.jsoup.*;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
@@ -32,15 +34,26 @@ import org.springframework.stereotype.Component;
 @EntityScan("com.mingdos.weibotophistory.model")
 @EnableJpaRepositories("com.mingdos.weibotophistory.repository")
 @Component
+@ConfigurationProperties(prefix = "crawler")
 public class Crawler {
 
-	private boolean debugMode = false;
+	private boolean debugMode;
+	
+	public void setDebugMode(boolean debugMode) {
+		this.debugMode = debugMode;
+	}
+
+
 	private HashMap<String, Topic> prevWeiboMap = new HashMap<>();
 	private String prevCrawlTime;
 	private final String version = "Crawler 1.3";
 	private Integer delaySeconds = 900; // Crawl the page every 15 mins
 	@Autowired
 	TopicRepo topicRepo;
+	@Autowired
+	CrawlerLogger crawlerLog;
+	
+
 	
 	/**
 	 * @throws IOException 
@@ -50,7 +63,6 @@ public class Crawler {
 	 */
 	public List<Topic> crawl(String url) {
 		
-		CrawlerLogger crawlerLog = CrawlerLogger.getInstance(debugMode);
 		List<Topic> currentTopList = new ArrayList<>();
 		HashMap<String, Topic> currWeiboMap = new HashMap<>();
 		Document topPage;
@@ -70,7 +82,7 @@ public class Crawler {
 		dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String firstTime = dtf.format(now);
 		String lastTime = dtf.format(now);
-		
+
 		for(Element e: trs) {
 			if(e.getElementsByTag("td").get(0).hasClass("td-01 ranktop")) {
 				Long highestRank = Long.parseLong(e.getElementsByClass("td-01 ranktop").get(0).text());
@@ -174,7 +186,6 @@ public class Crawler {
 	public void startCrawler() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		CrawlerLogger crawlerLog = CrawlerLogger.getInstance(debugMode);
 		delaySeconds = debugMode? 1 : 900;
 		
 		while(true) {
@@ -213,7 +224,6 @@ public class Crawler {
 	public void loadDataToDB(List<Topic> topics) {
 
 		int numOfSaved = 0;
-		CrawlerLogger crawlerLog = CrawlerLogger.getInstance(debugMode);
 		
 		for(Topic t: topics) {
 			Topic existTopic = topicRepo.findByTopic(t.getTopic());

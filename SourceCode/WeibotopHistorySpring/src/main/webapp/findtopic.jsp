@@ -25,14 +25,19 @@
 		<form class="find" action="selecttopics">
 			<label for="from">From: </label>
 			<input type="date" id="from" name="from">
-	
 			<label for="to">To: </label>
 			<input type="date" id="to" name="to">
-			
-			<input type="submit" value="Query">
+			<br>
+			<br>
+			<br>
+			<label>Keywords: </label>
+			<input type="text" autocomplete="off" id="search" name="search">
+			<input type="submit" value="Search">
 		</form>
-
-
+		<br>
+		<br>
+		<br>
+		
 
 				<%
 					List<Topic> result = (List<Topic>)request.getAttribute("topics");
