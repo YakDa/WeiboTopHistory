@@ -30,7 +30,6 @@ import org.springframework.stereotype.Component;
  * @author mingda.cai
  *
  */
-@SpringBootApplication
 @EntityScan("com.mingdos.weibotophistory.model")
 @EnableJpaRepositories("com.mingdos.weibotophistory.repository")
 @Component

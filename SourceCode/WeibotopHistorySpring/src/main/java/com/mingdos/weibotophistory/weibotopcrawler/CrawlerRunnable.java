@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-@SpringBootApplication
 @Component
 public class CrawlerRunnable implements Runnable {
 
