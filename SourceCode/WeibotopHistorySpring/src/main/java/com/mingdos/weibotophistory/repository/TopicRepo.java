@@ -19,8 +19,8 @@ public interface TopicRepo extends JpaRepository<Topic, String> {
 	@Query(value = "SELECT * FROM weibotop_table WHERE lasttime > ?1 AND firsttime < ?2 ORDER BY hotpoints DESC", nativeQuery = true)
 	List<Topic> getTopicsFromToDate(String startDate, String endDate);
 	
-	@Query(value = "SELECT * FROM weibotop_table WHERE lasttime > ?1 AND firsttime < ?2 ORDER BY hotpoints DESC LIMIT ?3", nativeQuery = true)
-	List<Topic> getTopicsTop10FromToDate(String startDate, String endDate, int num);
+	@Query(value = "SELECT * FROM weibotop_table WHERE lasttime > ?1 AND firsttime < ?2 ORDER BY hotpoints DESC LIMIT 10", nativeQuery = true)
+	List<Topic> getTopicsTop10FromToDate(String startDate, String endDate);
 	
 	@Query(value = "SELECT * FROM weibotop_table WHERE topic like %?1%", nativeQuery = true)
 	List<Topic> searchKeywords(String keyword);

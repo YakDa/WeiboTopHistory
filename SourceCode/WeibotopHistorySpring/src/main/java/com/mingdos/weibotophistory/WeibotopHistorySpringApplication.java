@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 @SpringBootApplication
 @EnableAsync
+@Controller
 public class WeibotopHistorySpringApplication {
 
 	public static void main(String[] args) {

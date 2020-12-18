@@ -16,8 +16,3 @@ PRIMARY KEY (id),
 UNIQUE KEY (topic)
 )
 CHARACTER SET 'utf8mb4';
-CREATE TABLE email_table(
-email_id VARCHAR(100) NOT NULL,
-PRIMARY KEY (email_id)
-)
-CHARACTER SET 'utf8mb4';

@@ -52,6 +52,7 @@ public class TopicController {
 	
 	@GetMapping("showinfo")
 	public String showTopicInfo(@RequestParam("id")String id, Model m) {
+		
 		Topic result = topicRepo.findById(id).orElse(null);
 		m.addAttribute("topic", result);
 		return "topicinfo";
